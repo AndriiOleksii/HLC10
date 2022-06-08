@@ -1,0 +1,25 @@
+version: '3'
+services:
+  redis-rdb:
+    image: 'redis:latest'
+    ports:
+      - '6379:6379'
+    volumes:
+    - ./redis.conf:/usr/local/etc/redis/redis.conf
+    - ./:/usr/local/etc/redis/appendonlydir
+    command: redis-server /usr/local/etc/redis/redis.conf
+      
+   redis-aof:
+     image: 'redis:latest'
+     ports:
+       - '6380:6380'
+    volumes:
+    - ./redis-aof.conf:/usr/local/etc/redis/redis.conf
+    - ./:/usr/local/etc/redis/appendonlydir
+    command: redis-server /usr/local/etc/redis/redis.conf
+      
+   beanstalkd:
+     image: 'schickling/beanstalkd:latest'
+     ports:
+       - '11300:11300'
+     
